@@ -1,12 +1,12 @@
 server:
-  port: 8081
+  port: 8080
 
 spring:
   application:
-    name: submission-service
+    name: SGPTG-service
 
   datasource:
-    url: jdbc:h2:mem:submissiondb
+    url: jdbc:h2:mem:SGPTGdb
     driver-class-name: org.h2.Driver
     username: sa
     password:
@@ -23,20 +23,7 @@ spring:
   h2:
     console:
       enabled: true
-      path: /h2-console                  # URL: http://localhost:8081/h2-console
-
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: appuser
-    password: apppass
-    virtual-host: /
+      path: /h2-console                  # URL: http://localhost:8080/h2-console
 
   main:
     allow-bean-definition-overriding: true
-
-app:
-  rabbit:
-    exchange: thesis.exchange
-    queue: thesis.anteproyecto.queue
-    routing-key: anteproyecto.createds

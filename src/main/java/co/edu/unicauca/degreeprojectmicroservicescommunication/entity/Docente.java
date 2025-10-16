@@ -1,35 +1,33 @@
 package co.edu.unicauca.degreeprojectmicroservicescommunication.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
-@Table(name = "docente")
-public class Docente {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "docentes")
+@PrimaryKeyJoinColumn(name = "persona_id")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Docente extends Persona {
 
-    @Column(unique = true)
-    private String correo;
 
-    private String nombre;
-    private String departamento;
+    @Enumerated(EnumType.STRING)
+    private Departamento departamento;
+    @OneToMany(mappedBy = "director")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private List<TrabajoDeGrado> trabajosComoDirector;
+    @OneToMany(mappedBy = "codirector")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private List<TrabajoDeGrado> trabajosComoCodirector;
+    private String codigoDocente;
 
-    public Docente() {}
-
-    public Docente(String nombre, String correo, String departamento) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.departamento = departamento;
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
     }
-
-    public Long getId() { return id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
-
-    public String getDepartamento() { return departamento; }
-    public void setDepartamento(String departamento) { this.departamento = departamento; }
 }

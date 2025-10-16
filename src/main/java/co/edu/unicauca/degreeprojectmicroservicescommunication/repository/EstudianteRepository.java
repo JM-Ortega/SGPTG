@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface EstudianteRepository extends JpaRepository<Estudiante, Long> {
-    Optional<Estudiante> findByCorreo(String correo);
+        Optional<Estudiante> findByCorreo(String correo);
 
-    @Query("SELECT t FROM TrabajoDeGrado t JOIN t.estudiantes e WHERE e.correo = :correo")
+    @Query("select t from TrabajoDeGrado t join t.estudiantes e where e.correo = :correo")
     List<TrabajoDeGrado> findTrabajosByEstudianteCorreo(@Param("correo") String correo);
 }

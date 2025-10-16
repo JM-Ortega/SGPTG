@@ -1,35 +1,31 @@
 package co.edu.unicauca.degreeprojectmicroservicescommunication.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "estudiante")
-public class Estudiante {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@PrimaryKeyJoinColumn(name = "persona_id")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class Estudiante extends Persona {
+    @Column(length = 30, nullable = false, unique = true)
+    private String codigoEstudiante;
 
-    @Column(unique = true)
-    private String correo;
+    @ManyToMany(mappedBy = "estudiantes")
+    @com.fasterxml.jackson.annotation.JsonIgnore
+    private List<TrabajoDeGrado> trabajos;
 
-    private String nombre;
-    private String codigo;
 
-    public Estudiante() {}
+    private Programa programa;
 
-    public Estudiante(String nombre, String correo, String codigo) {
-        this.nombre = nombre;
-        this.correo = correo;
-        this.codigo = codigo;
+    @EqualsAndHashCode.Include
+    public Long getId() {
+        return super.getId();
     }
-
-    public Long getId() { return id; }
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public String getCorreo() { return correo; }
-    public void setCorreo(String correo) { this.correo = correo; }
-
-    public String getCodigo() { return codigo; }
-    public void setCodigo(String codigo) { this.codigo = codigo; }
 }

@@ -2,7 +2,7 @@ package co.edu.unicauca.degreeprojectmicroservicescommunication.controller;
 
 import co.edu.unicauca.degreeprojectmicroservicescommunication.infra.dto.AnteproyectoRequest;
 import co.edu.unicauca.degreeprojectmicroservicescommunication.entity.Anteproyecto;
-import co.edu.unicauca.degreeprojectmicroservicescommunication.service.SubmissionService;
+import co.edu.unicauca.degreeprojectmicroservicescommunication.service.TrabajoDeGradoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
  * <p>Expone los endpoints del servicio de envíos (submissions) bajo la ruta
  * <code>/api/submission</code>. Actualmente permite crear un nuevo anteproyecto.</p>
  *
- * <p>Este controlador delega la lógica de negocio al {@link SubmissionService}.</p>
+ * <p>Este controlador delega la lógica de negocio al {@link TrabajoDeGradoService}.</p>
  */
 @RestController
 @RequestMapping("/api/submission")
 public class SubmissionController {
     /** Servicio encargado de manejar la lógica relacionada con los envíos (submissions). */
     @Autowired
-    private SubmissionService submissionService;
+    private TrabajoDeGradoService trabajoDeGradoService;
 
     /**
      * Crea un nuevo anteproyecto a partir de los datos enviados en la solicitud.
@@ -38,7 +38,7 @@ public class SubmissionController {
     @PostMapping("/anteproyecto")
     public ResponseEntity<?> createAnteproyecto(@RequestBody AnteproyectoRequest request) {
         try {
-            Anteproyecto saved = submissionService.crearAnteproyecto(request);
+            Anteproyecto saved = trabajoDeGradoService.crearAnteproyecto(request);
             return ResponseEntity.ok(saved);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("{\"error\":\"" + e.getMessage() + "\"}");

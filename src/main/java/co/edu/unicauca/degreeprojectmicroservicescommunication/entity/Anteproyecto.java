@@ -18,6 +18,8 @@ public class Anteproyecto {
     private Date fechaCreacion;
 
     @OneToOne(mappedBy = "anteproyecto", cascade = CascadeType.ALL)
+    @com.fasterxml.jackson.annotation.JsonIgnore
+
     private TrabajoDeGrado trabajoDeGrado;
 
     public Anteproyecto() {}
@@ -35,4 +37,6 @@ public class Anteproyecto {
 
     public TrabajoDeGrado getTrabajoDeGrado() { return trabajoDeGrado; }
     public void setTrabajoDeGrado(TrabajoDeGrado trabajoDeGrado) { this.trabajoDeGrado = trabajoDeGrado; }
+
+
 }
